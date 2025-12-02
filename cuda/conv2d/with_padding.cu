@@ -5,8 +5,6 @@
 #include <curand.h>
 #include <driver_types.h>
 #include <stdio.h>
-#include <math.h>
-
 
 
 #define KERNEL_WIDTH 2
