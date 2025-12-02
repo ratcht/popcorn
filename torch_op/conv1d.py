@@ -32,7 +32,10 @@ class Conv1d(nn.Module):
 
     out_length = (length + 2*self.padding - self.kernel_size)//self.stride + 1
 
-    x_s = x_padded.as_strided(size=(batch, in_channels, out_length, self.kernel_size), stride=(x_stride[0], x_stride[1], self.stride * x_stride[-1], x_stride[-1]))
+    x_s = x_padded.as_strided(
+      size=(batch, in_channels, out_length, self.kernel_size),
+      stride=(x_stride[0], x_stride[1], self.stride * x_stride[-1], x_stride[-1])
+    )
     x_s = einops.rearrange(x_s, "batch c_in out k -> batch 1 c_in out k")
 
     w_s = einops.rearrange(self.weight, "c_out c_in k -> 1 c_out c_in 1 k")
