@@ -1,4 +1,3 @@
-import pytest
 import torch as t
 import torch.nn.functional as F
 
@@ -51,7 +50,3 @@ class TestConv1d:
       torch_output = F.conv1d(x, layer.weight)
 
       assert t.allclose(output, torch_output)
-
-
-if __name__ == "__main__":
-  pytest.main([__file__, "-v"])
