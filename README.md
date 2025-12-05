@@ -1,4 +1,4 @@
-# Popcorn - A Collection of Kernels
+# Popcorn - A collection of kernels & operations
 
 GPU kernel implementations (+ assembled torch operations) in CUDA & Triton. This is a learning project exploring different optimization techniques for common operations.
 
