@@ -1,0 +1,7 @@
+CompileFlags:
+  Add: [-xcuda, --cuda-gpu-arch=sm_75, --no-cuda-version-check]
+  Compiler: clang++
+
+Diagnostics:
+  UnusedIncludes: None
+  MissingIncludes: None
