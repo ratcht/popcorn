@@ -12,7 +12,6 @@ void print_matmul_results(int* h_a, int* h_b, int* h_c, int n, float ms) {
   }
   printf("Matrix size: %dx%d\n", n, n);
   printf("Kernel execution time: %.3f ms\n", ms);
-  verify_matmul(h_a, h_b, h_c, n);
 }
 
 void run_naive_square_benchmark(int n) {

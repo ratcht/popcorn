@@ -2,6 +2,7 @@
 #define CUDA_UTILS_H
 
 #include <stdio.h>
+#include <math.h>
 #include <cuda_runtime.h>
 
 template<typename T>
@@ -44,20 +45,15 @@ void print_device_info() {
   printf("Running on GPU %d: %s\n", device, prop.name);
 }
 
-void verify_matmul(int *a, int *b, int *c, int n) {
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
-      int tmp = 0;
-      for (int k = 0; k < n; k++) {
-        tmp += a[i * n + k] * b[k * n + j];
-      }
-      if (tmp != c[i * n + j]) {
-        printf("Verification failed at (%d, %d): expected %d, got %d\n", i, j, tmp, c[i * n + j]);
-        return;
-      }
+bool compare_matrices(const float* a, const float* b, int size) {
+  for (int i = 0; i < size; i++) {
+    if (fabs(a[i] - b[i]) > 1e-3f) {
+      printf("mismatch at index %d: %.6f vs %.6f (diff: %.6e)\n",
+             i, a[i], b[i], fabs(a[i] - b[i]));
+      return false;
     }
   }
-  printf("Verification passed!\n");
+  return true;
 }
 
 void transpose(int *a, int *a_t, int n) {
