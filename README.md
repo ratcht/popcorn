@@ -18,10 +18,12 @@ popcorn/
 **CUDA kernels** (in `cuda/kernels/`):
 - Vector addition
 - Matrix multiplication
+- General Matrix multiplication
 - 1D convolution
 - 2D convolution
 - Sum reduction
 - Softmax
+- Fused QKV Projection
 
 Each operation has multiple implementations demonstrating different optimization techniques: naive implementations, shared memory usage, memory coalescing, warp-level primitives, cooperative groups, etc.
 
@@ -29,6 +31,7 @@ Each operation has multiple implementations demonstrating different optimization
 - Conv1d
 - Conv2d
 - SelfAttention
+- RoPE
 
 ## `cuda`
 
