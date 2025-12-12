@@ -61,12 +61,12 @@ if __name__ == "__main__":
   sin = rope.sin_cached[:6, :]
   hf_output, _ = apply_rotary_pos_emb(x, x, cos, sin, unsqueeze_dim=0)
 
-  print("INPUT =========")
-  print(x)
-  print("OUTPUT ========")
-  print(output)
-  print("HF OUTPUT =====")
-  print(hf_output)
+  # print("INPUT =========")
+  # print(x)
+  # print("OUTPUT ========")
+  # print(output)
+  # print("HF OUTPUT =====")
+  # print(hf_output)
 
   assert t.allclose(output, hf_output)
   print("Successful!")
