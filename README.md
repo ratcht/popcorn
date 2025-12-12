@@ -30,7 +30,7 @@ Each operation has multiple implementations demonstrating different optimization
 - Conv2d
 - SelfAttention
 
-## Building and Running
+## `cuda`
 
 See `cuda/README.md` for detailed instructions on building and running CUDA benchmarks.
 
@@ -41,6 +41,15 @@ make                                    # compile all benchmarks
 ./benchmarks/bench_matmul 2 1024        # run tiled matmul on 1024x1024 matrix
 ./benchmarks/bench_reduction 7 1048576  # run cooperative groups reduction
 ```
+
+## `torch_op`
+
+To run tests:
+```bash
+cd torch_op
+python -m pytest __tests__/test_rope.py   # run RoPE tests
+```
+
 
 ## Goals
 
