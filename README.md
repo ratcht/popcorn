@@ -7,30 +7,37 @@ GPU kernel implementations (+ assembled torch operations) in CUDA & Triton. This
 ```
 popcorn/
 ├── cuda/              # CUDA kernels
-├── triton/            # Triton kernels (planned)
+├── tl/                # Triton kernels
 ├── torch_op/          # PyTorch implementations
-├── validation/        # Kernel correctness validation scripts
-└── benchmarks/        # Performance comparison tools (planned)
+└── validation/        # Kernel correctness validation scripts
 ```
 
 ## What's Implemented
 
 **CUDA kernels** (in `cuda/kernels/`):
 - Vector addition
-- Matrix multiplication
-- General Matrix multiplication
+- Matrix multiplication (+ SGEMM)
 - 1D convolution
 - 2D convolution
 - Sum reduction
 - Softmax
 - Fused QKV Projection
+- RoPE
 
 Each operation has multiple implementations demonstrating different optimization techniques: naive implementations, shared memory usage, memory coalescing, warp-level primitives, cooperative groups, etc.
+
+**Triton kernels** (in `tl/kernels/`):
+- Vector addition
+- Softmax
+- Layer normalization
+- Matrix multiplication
 
 **PyTorch implementations** (in `torch_op/`):
 - Conv1d
 - Conv2d
-- SelfAttention
+- Self-Attention
+- Layer Normalization
+- RMS Normalization
 - RoPE
 
 ## `cuda`
