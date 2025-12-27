@@ -10,13 +10,12 @@ class RMSNorm(nn.Module):
     super().__init__()
     self.normalized_shape = normalized_shape
     self.n = math.prod(self.normalized_shape)
-    self.dims = tuple(-i - 1 for i in range(len(self.normalized_shape)))
     self.eps = eps
 
     self.weight = nn.Parameter(t.ones(self.normalized_shape))
 
   def forward(self, x: t.Tensor):
-    ms = x.square().sum(self.dims) / self.n
+    ms = x.square().sum(-1) / self.n
     if self.eps:
       rms = t.sqrt(self.eps + ms)
     else:

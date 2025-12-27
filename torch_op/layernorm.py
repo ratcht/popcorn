@@ -7,25 +7,18 @@ class LayerNorm(nn.Module):
   def __init__(self, normalized_shape, eps=1e-05):
     super().__init__()
     self.normalized_shape = normalized_shape
-    self.dims = tuple(-i - 1 for i in range(len(self.normalized_shape)))
     self.eps = eps
+    self.dims = tuple(range(-len(self.normalized_shape), 0))
 
     self.weight = nn.Parameter(t.ones(self.normalized_shape))
     self.bias = nn.Parameter(t.zeros(self.normalized_shape))
 
   def forward(self, x: t.Tensor):
-    e_x = x.mean(
-      self.dims,
-      keepdim=True
-    )
-    var_x = x.var(
-      self.dims,
-      keepdim=True,
-      correction=0
-    )
+    x_mean = x.mean(self.dims, keepdim=True)
+    x_var = x.var(self.dims, keepdim=True, correction=0)
 
     return (
-      (x - e_x)/t.sqrt(var_x + self.eps)
+      (x - x_mean)/t.sqrt(x_var + self.eps)
     ) * self.weight + self.bias
 
 

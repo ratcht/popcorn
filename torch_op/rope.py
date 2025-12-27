@@ -26,7 +26,7 @@ class RotaryPositionEmbedding(nn.Module):
     assert m.shape == (max_seq_len,)
 
     # m * theta
-    emb = einops.repeat(t.outer(m, theta), "s d -> s (d 2)")
+    emb = einops.repeat(t.outer(m, theta), "s d -> s (2 d)")
 
     self.register_buffer("cos_cached", emb.cos())
     self.register_buffer("sin_cached", emb.sin())
@@ -50,23 +50,48 @@ class RotaryPositionEmbedding(nn.Module):
 
 
 if __name__ == "__main__":
-  from transformers.models.llama.modeling_llama import apply_rotary_pos_emb
+  from transformers.models.llama.configuration_llama import LlamaConfig
+  from transformers.models.llama.modeling_llama import (
+    LlamaRotaryEmbedding,
+    apply_rotary_pos_emb,
+  )
 
-  rope = RotaryPositionEmbedding(4, 12)
-  x = t.arange(0, 24, dtype=t.float32).reshape(1, 6, 4) # B L D
+  dim = 4
+  max_seq_len = 12
+  base = 10000
+
+  rope = RotaryPositionEmbedding(dim, max_seq_len, base)
+  x = t.arange(0, 24, dtype=t.float32).reshape(1, 6, 4)  # B L D
+
+  # Use HuggingFace's rotary embedding to generate sin/cos
+  config = LlamaConfig(
+    head_dim=dim,
+    max_position_embeddings=max_seq_len,
+    rope_theta=base,
+  )
+  hf_rope = LlamaRotaryEmbedding(config)
+  position_ids = t.arange(6).unsqueeze(0)  # shape: (1, seq_len)
+  hf_cos, hf_sin = hf_rope(x, position_ids)
+
+  my_cos = rope.cos_cached[:6, :]
+  my_sin = rope.sin_cached[:6, :]
+
+  print("SIN/COS COMPARISON ====")
+  print(f"My cos shape: {my_cos.shape}, HF cos shape: {hf_cos.shape}")
+  print(f"Cos close: {t.allclose(my_cos, hf_cos.squeeze(0), atol=1e-5)}")
+  print(f"Sin close: {t.allclose(my_sin, hf_sin.squeeze(0), atol=1e-5)}")
 
   output = rope(x)
+  hf_output, _ = apply_rotary_pos_emb(x, x, hf_cos, hf_sin)
 
-  cos = rope.cos_cached[:6, :]
-  sin = rope.sin_cached[:6, :]
-  hf_output, _ = apply_rotary_pos_emb(x, x, cos, sin, unsqueeze_dim=0)
+  print("INPUT =========")
+  print(x)
+  print("OUTPUT ========")
+  print(output)
+  print("HF OUTPUT =====")
+  print(hf_output)
 
-  # print("INPUT =========")
-  # print(x)
-  # print("OUTPUT ========")
-  # print(output)
-  # print("HF OUTPUT =====")
-  # print(hf_output)
-
-  assert t.allclose(output, hf_output)
+  assert t.allclose(my_cos, hf_cos.squeeze(0), atol=1e-5), "Cos mismatch!"
+  assert t.allclose(my_sin, hf_sin.squeeze(0), atol=1e-5), "Sin mismatch!"
+  assert t.allclose(output, hf_output, atol=1e-5), "Output mismatch!"
   print("Successful!")
