@@ -1,7 +1,7 @@
 import torch as t
 import triton
 
-from ..kernels.vector_add import vector_add
+from kernels.vector_add import vector_add
 
 DEVICE = triton.runtime.driver.active.get_active_torch_device()
 

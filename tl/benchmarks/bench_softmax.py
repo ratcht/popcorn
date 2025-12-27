@@ -1,7 +1,7 @@
 import torch as t
 import triton
 
-from ..kernels.softmax import softmax
+from kernels.softmax import softmax
 
 
 def softmax_naive(x):

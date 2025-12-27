@@ -45,6 +45,16 @@ make                                    # compile all benchmarks
 ./benchmarks/bench_reduction 7 1048576  # run cooperative groups reduction
 ```
 
+## `tl`
+
+See `tl/README.md` for detailed instructions on building and running Triton benchmarks.
+
+Quick start:
+```bash
+cd tl
+python -m benchmarks.bench_softmax
+```
+
 ## `torch_op`
 
 To run tests:
