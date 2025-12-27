@@ -36,4 +36,4 @@ def run_vector_add_benchmark(size, provider):
 
 
 if __name__=="__main__":
-  run_vector_add_benchmark.run(print_data=True, save_path='.')
+  run_vector_add_benchmark.run(print_data=True)

@@ -54,4 +54,4 @@ def run_softmax_benchmark(M, N, provider):
 
 if __name__=="__main__":
   print(f"Device: {DEVICE}")
-  run_softmax_benchmark.run(print_data=True, save_path='.')
+  run_softmax_benchmark.run(print_data=True)
