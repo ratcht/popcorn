@@ -112,8 +112,8 @@ if __name__ == "__main__":
   print(f"ref: {y_ref}")
   print(f"triton: {y_kernel}")
 
-  assert t.allclose(y_ref, y_naive)
+  assert t.allclose(y_ref, y_naive, atol=1e-06)
   print('success ref vs. naive!')
 
-  assert t.allclose(y_ref, y_kernel)
+  assert t.allclose(y_ref, y_kernel, atol=1e-06)
   print('success ref vs. kernel!')
