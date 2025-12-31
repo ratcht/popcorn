@@ -1,7 +1,7 @@
 import torch as t
 from transformers.models.llama.modeling_llama import apply_rotary_pos_emb
 
-from torch_op.rope import RotaryPositionEmbedding
+from pytorch.rope import RotaryPositionEmbedding
 
 
 class TestRotaryPositionEmbedding:

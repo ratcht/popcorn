@@ -1,7 +1,7 @@
 import torch as t
 import torch.nn.functional as F
 
-from torch_op.conv2d import Conv2d
+from pytorch.conv2d import Conv2d
 
 
 class TestConv2d:

@@ -8,7 +8,7 @@ GPU kernel implementations (+ assembled torch operations) in CUDA & Triton. This
 popcorn/
 ├── cuda/              # CUDA kernels
 ├── tl/                # Triton kernels
-├── torch_op/          # PyTorch implementations
+├── pytorch/          # PyTorch implementations
 └── validation/        # Kernel correctness validation scripts
 ```
 
@@ -32,7 +32,7 @@ Each operation has multiple implementations demonstrating different optimization
 - Layer normalization
 - Matrix multiplication
 
-**PyTorch implementations** (in `torch_op/`):
+**PyTorch implementations** (in `pytorch/`):
 - Conv1d
 - Conv2d
 - Self-Attention
@@ -62,11 +62,11 @@ cd tl
 python -m benchmarks.bench_softmax
 ```
 
-## `torch_op`
+## `pytorch`
 
 To run tests:
 ```bash
-cd torch_op
+cd pytorch
 python -m pytest __tests__/test_rope.py   # run RoPE tests
 ```
 
