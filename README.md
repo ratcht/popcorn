@@ -2,7 +2,7 @@
 
 GPU kernel implementations (+ assembled torch operations) in CUDA & Triton. This is a learning project exploring different optimization techniques for common operations.
 
-[Link to LLM implementations]([https://arxiv.org/abs/1706.03762](https://github.com/ratcht/llm))
+[Link to LLM implementations](https://github.com/ratcht/llm)
 
 ## Repository Structure
 
