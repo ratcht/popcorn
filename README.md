@@ -1,8 +1,8 @@
+[Link to LLM implementations](https://github.com/ratcht/llm)
+
 # Popcorn - A collection of kernels & operations
 
 GPU kernel implementations (+ assembled torch operations) in CUDA & Triton. This is a learning project exploring different optimization techniques for common operations.
-
-[Link to LLM implementations](https://github.com/ratcht/llm)
 
 ## Repository Structure
 
